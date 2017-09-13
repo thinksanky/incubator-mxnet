@@ -80,6 +80,8 @@ Bing Xu, Chiyuan Zhang, and Zheng Zhang.
 [MXNet: A Flexible and Efficient Machine Learning Library for Heterogeneous Distributed Systems](https://github.com/dmlc/web-data/raw/master/mxnet/paper/mxnet-learningsys.pdf).
 In Neural Information Processing Systems, Workshop on Machine Learning Systems, 2015
 
+
+
 History
 -------
 MXNet emerged from a collaboration by the authors of [cxxnet](https://github.com/dmlc/cxxnet), [minerva](https://github.com/dmlc/minerva), and [purine2](https://github.com/purine/purine2). The project reflects what we have learned from the past projects. MXNet combines aspects of each of these projects to achieve flexibility, speed, and memory efficiency.
