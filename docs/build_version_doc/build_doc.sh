@@ -76,17 +76,13 @@ then
     echo " ******************************************  " 
     echo " Building new release on: $latest_tag "
     echo " ******************************************  " 
-    git submodule update
+    git submodule update --init --recursive
 
     # checkout the latest release tag.
     echo "++++ Checking out and building new tag $latest_tag ++++"
     git checkout tags/$latest_tag
     make docs || exit 1
     
-    tests/ci_build/ci_build.sh doc python docs/build_version_doc/AddVersion.py --file_path "docs/_build/html/" --current_version "$latest_tag"
-    tests/ci_build/ci_build.sh doc python docs/build_version_doc/AddPackageLink.py \
-                                          --file_path "docs/_build/html/install/index.html" --current_version "$latest_tag"
-
     # Update the tag_list (tag.txt).
     ###### content of tag.txt########
     # <latest_tag_goes_here>
@@ -98,6 +94,10 @@ then
     echo -e "$latest_tag\n$(cat $tag_list_file)" > "$tag_list_file"
     cat $tag_list_file
 
+    tests/ci_build/ci_build.sh doc python docs/build_version_doc/AddVersion.py --file_path "docs/_build/html/" --current_version "$latest_tag"
+    tests/ci_build/ci_build.sh doc python docs/build_version_doc/AddPackageLink.py \
+                                          --file_path "docs/_build/html/install/index.html" --current_version "$latest_tag"
+    
     # The following block does the following:
     # a. copies the static html that was built from new tag to a local sandbox folder.
     # b. copies the  $tag_list_file into local sandbox tag.txt        
@@ -124,7 +124,7 @@ then
 else
     # Build latest master
     echo " ********** Building Master ************ "
-
+    git submodule update --init --recursive
     make docs || exit 1
 
     rm -rfv $web_folder/versions/master/*
